@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace MapBuddy.Info
 {
@@ -19,7 +20,7 @@ namespace MapBuddy.Info
 
         public InfoEnemy(string path, Dictionary<string, string> mapDict, bool splitByMap)
         {
-            output_dir = logger.GetLogDir() + "\\Part\\Enemy\\";
+            output_dir = Path.Combine(logger.GetLogDir(), "Part", "Enemy");
 
             header = $"Name;" +
                     $"ModelName;" +

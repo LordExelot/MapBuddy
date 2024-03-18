@@ -12,26 +12,45 @@ namespace MapBuddy
 {
     public partial class MainWindow : Form
     {
-        string mod_folder = null;
-        string log_dir = System.AppDomain.CurrentDomain.BaseDirectory + "\\Log\\";
+        static string baseDir = System.AppDomain.CurrentDomain.BaseDirectory;
+        string settings_file = Path.Combine(baseDir, "MapBuddySettings.txt");
+        string log_dir = Path.Combine(baseDir, "Log");
+
+        string mod_folder
+        {
+            get
+            {
+                if (_mod_folder == null)
+                {
+                    if (File.Exists(settings_file))
+                        _mod_folder = File.ReadAllText(settings_file);
+                    else
+                        _mod_folder = String.Empty;
+                }
+                return _mod_folder;
+            }
+            set 
+            { 
+                _mod_folder = value;
+                File.WriteAllText(settings_file, _mod_folder);
+            }
+        }
+        string? _mod_folder = null;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            //mod_folder = "";
-            mod_folder = "C:\\Users\\Xylozi\\Documents\\C# Projects\\MapBuddy\\MapBuddy\\bin\\Debug\\net7.0-windows\\example_mod";
-
             textbox_mod_folder.Text = mod_folder;
 
-            bool exists = System.IO.Directory.Exists(log_dir);
+            bool exists = Directory.Exists(log_dir);
 
             if (!exists)
             {
-                System.IO.Directory.CreateDirectory(log_dir);
+                Directory.CreateDirectory(log_dir);
             }
 
-            File.WriteAllText(log_dir + $"log.txt", "");
+            File.WriteAllText(Path.Combine(log_dir, "log.txt"), "");
 
             // Defaults
             c_entityid_enemy.Checked = true;
@@ -51,9 +70,13 @@ namespace MapBuddy
 
             UpdateMapSelection(mod_folder);
         }
+        
         private void UpdateMapSelection(string path)
         {
-            List<string> maps = Directory.GetFileSystemEntries(path + "\\map\\mapstudio", @"*.msb.dcx").ToList();
+            if (String.IsNullOrEmpty(path))
+                return;
+
+            List<string> maps = Directory.GetFileSystemEntries(Path.Combine(path, "map", "mapstudio"), @"*.msb.dcx").ToList();
 
             cb_map_select.Items.Clear();
 

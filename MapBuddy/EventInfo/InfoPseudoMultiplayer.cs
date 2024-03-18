@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace MapBuddy.EventInfo
 {
@@ -18,7 +19,7 @@ namespace MapBuddy.EventInfo
 
         public InfoPseudoMultiplayer(string path, Dictionary<string, string> mapDict, bool splitByMap)
         {
-            output_dir = logger.GetLogDir() + "\\Event\\PsuedoMultiplayer\\";
+            output_dir = Path.Combine(logger.GetLogDir(), "Event", "PsuedoMultiplayer");
 
             header = $"EventID;" +
                     $"PartName;" +

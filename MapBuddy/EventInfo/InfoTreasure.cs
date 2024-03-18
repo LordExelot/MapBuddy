@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace MapBuddy.EventInfo
 {
@@ -20,7 +21,7 @@ namespace MapBuddy.EventInfo
 
         public InfoTreasure(string path, Dictionary<string, string> mapDict, bool splitByMap)
         {
-            output_dir = logger.GetLogDir() + "\\Event\\Treasure\\";
+            output_dir = Path.Combine(logger.GetLogDir(), "Event", "Treasure");
 
             header = $"EventID;" +
                     $"PartName;" +
