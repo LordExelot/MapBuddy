@@ -13,25 +13,25 @@ namespace MapBuddy
     public partial class MainWindow : Form
     {
         string mod_folder = null;
-        string log_dir = System.AppDomain.CurrentDomain.BaseDirectory + "\\Log\\";
+        string log_dir = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Log");
 
         public MainWindow()
         {
             InitializeComponent();
 
-            //mod_folder = "";
-            mod_folder = "C:\\Users\\Xylozi\\Documents\\C# Projects\\MapBuddy\\MapBuddy\\bin\\Debug\\net7.0-windows\\example_mod";
+            mod_folder = "";
+            //mod_folder = "C:\\Users\\Xylozi\\Documents\\C# Projects\\MapBuddy\\MapBuddy\\bin\\Debug\\net7.0-windows\\example_mod";
 
             textbox_mod_folder.Text = mod_folder;
 
-            bool exists = System.IO.Directory.Exists(log_dir);
+            bool exists = Directory.Exists(log_dir);
 
             if (!exists)
             {
-                System.IO.Directory.CreateDirectory(log_dir);
+                Directory.CreateDirectory(log_dir);
             }
 
-            File.WriteAllText(log_dir + $"log.txt", "");
+            File.WriteAllText(Path.Combine(log_dir, "log.txt"), "");
 
             // Defaults
             c_entityid_enemy.Checked = true;
@@ -51,9 +51,10 @@ namespace MapBuddy
 
             UpdateMapSelection(mod_folder);
         }
+        
         private void UpdateMapSelection(string path)
         {
-            List<string> maps = Directory.GetFileSystemEntries(path + "\\map\\mapstudio", @"*.msb.dcx").ToList();
+            List<string> maps = Directory.GetFileSystemEntries(Path.Combine(path, "map", "mapstudio"), @"*.msb.dcx").ToList();
 
             cb_map_select.Items.Clear();
 
