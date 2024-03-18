@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using SoulsFormats;
 using SoulsFormats.KF4;
 using static SoulsFormats.MSB.Shape.Composite;
@@ -61,12 +62,12 @@ namespace MapBuddy.Action
         {
             List<MSBE.Part.Enemy> new_enemies = new List<MSBE.Part.Enemy>();
 
-            string ResourceFolder = System.AppDomain.CurrentDomain.BaseDirectory + "\\Resources\\";
+            string ResourceFolder = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Resources");
 
-            string boss_list = File.ReadAllText(ResourceFolder + "enemy_boss.txt");
-            string passive_list = File.ReadAllText(ResourceFolder + "enemy_passive.txt");
-            string player_list = File.ReadAllText(ResourceFolder + "enemy_player.txt");
-            string script_list = File.ReadAllText(ResourceFolder + "enemy_script.txt");
+            string boss_list = File.ReadAllText(Path.Combine(ResourceFolder, "enemy_boss.txt"));
+            string passive_list = File.ReadAllText(Path.Combine(ResourceFolder + "enemy_passive.txt"));
+            string player_list = File.ReadAllText(Path.Combine(ResourceFolder + "enemy_player.txt"));
+            string script_list = File.ReadAllText(Path.Combine(ResourceFolder + "enemy_script.txt"));
 
             string[] boss_exclusion = boss_list.Split(";");
             string[] passive_exclusion = passive_list.Split(";");

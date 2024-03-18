@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace MapBuddy.EventInfo
 {
@@ -18,7 +19,7 @@ namespace MapBuddy.EventInfo
 
         public InfoRetryPoint(string path, Dictionary<string, string> mapDict, bool splitByMap)
         {
-            output_dir = logger.GetLogDir() + "\\Event\\RetryPoint\\";
+            output_dir = Path.Combine(logger.GetLogDir(), "Event", "RetryPoint");
 
             header = $"EventID;" +
                     $"PartName;" +
@@ -50,7 +51,7 @@ namespace MapBuddy.EventInfo
             {
                 header = $"MapID;" + header; // Add MapID column for combined file
 
-                File.WriteAllText(output_dir + $"{combined_file_name}.{file_format}", header);
+                File.WriteAllText(Path.Combine(output_dir, $"{combined_file_name}.{file_format}"), header);
             }
 
             foreach (KeyValuePair<string, string> entry in mapDict)
@@ -77,7 +78,7 @@ namespace MapBuddy.EventInfo
             // By Map: write header here
             if (outputByMap)
             {
-                File.WriteAllText(output_dir + $"{map_name}.{file_format}", header);
+                File.WriteAllText(Path.Combine(output_dir, $"{map_name}.{file_format}"), header);
             }
 
             foreach (MSBE.Event.RetryPoint entry in msb.Events.RetryPoints)
@@ -116,12 +117,12 @@ namespace MapBuddy.EventInfo
             // By Map
             if (outputByMap)
             {
-                File.AppendAllText(output_dir + $"{map_name}.{file_format}", text);
+                File.AppendAllText(Path.Combine(output_dir, $"{map_name}.{file_format}"), text);
             }
             // Combined
             else
             {
-                File.AppendAllText(output_dir + $"{combined_file_name}.{file_format}", text);
+                File.AppendAllText(Path.Combine(output_dir, $"{combined_file_name}.{file_format}"), text);
             }
         }
     }

@@ -18,7 +18,7 @@ namespace MapBuddy.EventInfo
 
         public InfoGenerator(string path, Dictionary<string, string> mapDict, bool splitByMap)
         {
-            output_dir = logger.GetLogDir() + "\\Event\\Generator\\";
+            output_dir = Path.Combine(logger.GetLogDir(), "Event", "Generator");
 
             header = $"EventID;" +
                     $"PartName;" +

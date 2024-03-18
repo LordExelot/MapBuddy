@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace MapBuddy.EventInfo
 {
@@ -18,7 +19,7 @@ namespace MapBuddy.EventInfo
 
         public InfoMount(string path, Dictionary<string, string> mapDict, bool splitByMap)
         {
-            output_dir = logger.GetLogDir() + "\\Event\\Mount\\";
+            output_dir = Path.Combine(logger.GetLogDir(), "Event", "Mount");
 
             header = $"EventID;" +
                     $"PartName;" +

@@ -17,12 +17,12 @@ namespace MapBuddy
 
             if (map_selection == "All")
             {
-                map_list = Directory.GetFileSystemEntries(path + "\\map\\mapstudio", @"*.msb.dcx").ToList();
+                map_list = Directory.GetFileSystemEntries(Path.Combine(path, "map", "mapstudio"), @"*.msb.dcx").ToList();
                 logger.AddToLog($"Editing all maps.");
             }
             else
             {
-                List<string> temp = Directory.GetFileSystemEntries(path + "\\map\\mapstudio", @"*.msb.dcx").ToList();
+                List<string> temp = Directory.GetFileSystemEntries(Path.Combine(path, "map", "mapstudio"), @"*.msb.dcx").ToList();
                 foreach (string s in temp)
                 {
                     if (s.Contains(map_selection))

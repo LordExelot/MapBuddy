@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace MapBuddy
 {
@@ -19,14 +20,14 @@ namespace MapBuddy
         {
             string logDir = GetLogDir();
 
-            bool exists = System.IO.Directory.Exists(logDir);
+            bool exists = Directory.Exists(logDir);
 
             if (!exists)
             {
-                System.IO.Directory.CreateDirectory(logDir);
+                Directory.CreateDirectory(logDir);
             }
 
-            File.AppendAllText($"{logDir}log.txt", log);
+            File.AppendAllText(Path.Combine(logDir, "log.txt"), log);
 
             log = "";
         }
@@ -38,7 +39,7 @@ namespace MapBuddy
 
         public string GetLogDir()
         {
-            return System.AppDomain.CurrentDomain.BaseDirectory + "\\Log\\";
+            return Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Log");
         }
     }
 }
