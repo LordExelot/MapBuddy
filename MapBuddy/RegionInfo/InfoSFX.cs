@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace MapBuddy.RegionInfo
 {
@@ -21,7 +22,7 @@ namespace MapBuddy.RegionInfo
         {
             combined_file_name = $"Global_{propertyName}";
 
-            output_dir = logger.GetLogDir() + $"\\Region\\{propertyName}\\";
+            output_dir = Path.Combine(logger.GetLogDir(), "Region", propertyName);
 
             header = $"Name;" +
                     $"Shape;" +

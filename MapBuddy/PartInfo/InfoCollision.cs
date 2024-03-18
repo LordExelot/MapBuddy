@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace MapBuddy.Info
 {
@@ -18,7 +19,7 @@ namespace MapBuddy.Info
 
         public InfoCollision(string path, Dictionary<string, string> mapDict, bool splitByMap)
         {
-            output_dir = logger.GetLogDir() + "\\Part\\Collision\\";
+            output_dir = Path.Combine(logger.GetLogDir(), "Part", "Collision");
 
             header = $"Name;" +
                     $"ModelName;" +
